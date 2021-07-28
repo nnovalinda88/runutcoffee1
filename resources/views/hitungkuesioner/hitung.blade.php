@@ -11,6 +11,103 @@
 
         <!-- /.content -->
         <div class="box-body">
+            <table class="table" border="5">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Nilai</th>
+                        <th>Sum(Nilai)</th>
+                        <th>Sum(Ya)</th>
+                        <th>Sum(Tidak)</th>
+                        <th>Entrophy</th>
+                        <th>Gain</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">Total Kasus</td>
+                        @php
+                            $tot_nilai = $arr['total']->sum_nilai;
+                            $tot_ya = $arr['total']->sum_ya;
+                            $tot_tidak = $arr['total']->sum_tidak;
+
+                            $tot_nilai_pel1 = $arr['pelayanan']->sum_nilai_pelayanan1;
+                            $tot_ya_pel1 = $arr['pelayanan']->sum_ya_pelayanan1;
+                            $tot_tidak_pel1 = $arr['pelayanan']->sum_tidak_pelayanan1;
+
+                            $tot_nilai_pel2 = $arr['pelayanan']->sum_nilai_pelayanan2;
+                            $tot_ya_pel2 = $arr['pelayanan']->sum_ya_pelayanan2;
+                            $tot_tidak_pel2 = $arr['pelayanan']->sum_tidak_pelayanan2;
+
+                            $tot_nilai_pel3 = $arr['pelayanan']->sum_nilai_pelayanan3;
+                            $tot_ya_pel3 = $arr['pelayanan']->sum_ya_pelayanan3;
+                            $tot_tidak_pel3 = $arr['pelayanan']->sum_tidak_pelayanan3;
+
+                            $tot_nilai_pel4 = $arr['pelayanan']->sum_nilai_pelayanan4;
+                            $tot_ya_pel4 = $arr['pelayanan']->sum_ya_pelayanan4;
+                            $tot_tidak_pel4 = $arr['pelayanan']->sum_tidak_pelayanan4;
+
+                            $tot_nilai_pel5 = $arr['pelayanan']->sum_nilai_pelayanan5;
+                            $tot_ya_pel5 = $arr['pelayanan']->sum_ya_pelayanan5;
+                            $tot_tidak_pel5 = $arr['pelayanan']->sum_tidak_pelayanan5;
+                        @endphp
+                        <td>{{ $tot_nilai }}</td>
+                        <td>{{ $tot_ya }}</td>
+                        <td>{{ $tot_tidak }}</td>
+                        <td>{{ $arr['entrophy_total'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">Pelayanan</td>
+                        <td>{{ $arr['gain_pelayanan'] }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>1</td>
+                        <td>{{ $tot_nilai_pel1 }}</td>
+                        <td>{{ $tot_ya_pel1 }}</td>
+                        <td>{{ $tot_tidak_pel1 }}</td>
+                        <td>{{ $arr['entrophy_pelayanan1'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>2</td>
+                        <td>{{ $tot_nilai_pel2 }}</td>
+                        <td>{{ $tot_ya_pel2 }}</td>
+                        <td>{{ $tot_tidak_pel2 }}</td>
+                        <td>{{ $arr['entrophy_pelayanan2'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>3</td>
+                        <td>{{ $tot_nilai_pel3 }}</td>
+                        <td>{{ $tot_ya_pel3 }}</td>
+                        <td>{{ $tot_tidak_pel3 }}</td>
+                        <td>{{ $arr['entrophy_pelayanan3'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>4</td>
+                        <td>{{ $tot_nilai_pel4 }}</td>
+                        <td>{{ $tot_ya_pel4 }}</td>
+                        <td>{{ $tot_tidak_pel4 }}</td>
+                        <td>{{ $arr['entrophy_pelayanan4'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>5</td>
+                        <td>{{ $tot_nilai_pel5 }}</td>
+                        <td>{{ $tot_ya_pel5 }}</td>
+                        <td>{{ $tot_tidak_pel5 }}</td>
+                        <td>{{ $arr['entrophy_pelayanan5'] }}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
             <!-- <div id="hitungkuesioner">
 
                 @if (!empty($hitungkuesioner_list) )

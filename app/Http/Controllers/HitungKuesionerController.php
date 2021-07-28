@@ -7,11 +7,69 @@ use Illuminate\Http\Request;
 use App\Models\HitungKuesioner;
 use App\Models\Kuesioner;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class HitungKuesionerController extends Controller
 {
     public function index()
     {
+        $arr = [];
+        $tot = DB::select('select count(rekomendasi) as sum_nilai, (SELECT count(rekomendasi) FROM data_kuesioner where rekomendasi = 1) as sum_ya, (SELECT count(rekomendasi) FROM data_kuesioner where rekomendasi = 0) as sum_tidak from data_kuesioner');
+        foreach ($tot as $v) {
+            $entrophy_total = (-$v->sum_ya/$v->sum_nilai)*log($v->sum_ya/$v->sum_nilai)+(-$v->sum_tidak/$v->sum_nilai)*log($v->sum_tidak/$v->sum_nilai);
+            $arr['total'] = $v;
+            $arr['entrophy_total'] = $entrophy_total;
+        }
+
+        $pelayanan = DB::select('select 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 1) as sum_nilai_pelayanan1, 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 1 and rekomendasi = 1) as sum_ya_pelayanan1, 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 1 and rekomendasi = 0) as sum_tidak_pelayanan1,
+
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 2) as sum_nilai_pelayanan2, 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 2 and rekomendasi = 1) as sum_ya_pelayanan2, 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 2 and rekomendasi = 0) as sum_tidak_pelayanan2, 
+
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 3) as sum_nilai_pelayanan3, 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 3 and rekomendasi = 1) as sum_ya_pelayanan3, 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 3 and rekomendasi = 0) as sum_tidak_pelayanan3, 
+
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 4) as sum_nilai_pelayanan4, 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 4 and rekomendasi = 1) as sum_ya_pelayanan4, 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 4 and rekomendasi = 0) as sum_tidak_pelayanan4, 
+
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 5) as sum_nilai_pelayanan5,
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 5 and rekomendasi = 1) as sum_ya_pelayanan5, 
+            (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 5 and rekomendasi = 0) as sum_tidak_pelayanan5
+            from data_kuesioner');
+        foreach ($pelayanan as $v) {
+            $entrophy_pelayanan1 = (-$v->sum_ya_pelayanan1/$v->sum_nilai_pelayanan1)*log($v->sum_ya_pelayanan1/$v->sum_nilai_pelayanan1)+(-$v->sum_tidak_pelayanan1/$v->sum_nilai_pelayanan1)*log($v->sum_tidak_pelayanan1/$v->sum_nilai_pelayanan1);
+
+            $entrophy_pelayanan2 = (-$v->sum_ya_pelayanan2/$v->sum_nilai_pelayanan2)*log($v->sum_ya_pelayanan2/$v->sum_nilai_pelayanan2)+(-$v->sum_tidak_pelayanan2/$v->sum_nilai_pelayanan2)*log($v->sum_tidak_pelayanan2/$v->sum_nilai_pelayanan2);
+
+            $entrophy_pelayanan3 = (-$v->sum_ya_pelayanan3/$v->sum_nilai_pelayanan3)*log($v->sum_ya_pelayanan3/$v->sum_nilai_pelayanan3)+(-$v->sum_tidak_pelayanan3/$v->sum_nilai_pelayanan3)*log($v->sum_tidak_pelayanan3/$v->sum_nilai_pelayanan3);
+
+            $entrophy_pelayanan4 = (-$v->sum_ya_pelayanan4/$v->sum_nilai_pelayanan4)*log($v->sum_ya_pelayanan4/$v->sum_nilai_pelayanan4)+(-$v->sum_tidak_pelayanan4/$v->sum_nilai_pelayanan4)*log($v->sum_tidak_pelayanan4/$v->sum_nilai_pelayanan4);
+
+            $entrophy_pelayanan5 = (-$v->sum_ya_pelayanan5/$v->sum_nilai_pelayanan5)*log($v->sum_ya_pelayanan5/$v->sum_nilai_pelayanan5)+(-$v->sum_tidak_pelayanan5/$v->sum_nilai_pelayanan5)*log($v->sum_tidak_pelayanan5/$v->sum_nilai_pelayanan5);
+
+            (is_nan($entrophy_pelayanan1)) ? $entrophy_pelayanan1 = 0 : $entrophy_pelayanan1 = $entrophy_pelayanan1;
+            (is_nan($entrophy_pelayanan2)) ? $entrophy_pelayanan2 = 0 : $entrophy_pelayanan2 = $entrophy_pelayanan2;
+            (is_nan($entrophy_pelayanan3)) ? $entrophy_pelayanan3 = 0 : $entrophy_pelayanan3 = $entrophy_pelayanan3;
+            (is_nan($entrophy_pelayanan4)) ? $entrophy_pelayanan4 = 0 : $entrophy_pelayanan4 = $entrophy_pelayanan4;
+            (is_nan($entrophy_pelayanan5)) ? $entrophy_pelayanan5 = 0 : $entrophy_pelayanan5 = $entrophy_pelayanan5;
+
+            $gain_pelayanan = ($arr['entrophy_total'])-(($v->sum_nilai_pelayanan1/$arr['total']->sum_nilai)*$entrophy_pelayanan1)-(($v->sum_nilai_pelayanan2/$arr['total']->sum_nilai)*$entrophy_pelayanan2)-(($v->sum_nilai_pelayanan3/$arr['total']->sum_nilai)*$entrophy_pelayanan3)-(($v->sum_nilai_pelayanan4/$arr['total']->sum_nilai)*$entrophy_pelayanan4)-(($v->sum_nilai_pelayanan5/$arr['total']->sum_nilai)*$entrophy_pelayanan5);
+
+            $arr['pelayanan'] = $v;
+            $arr['entrophy_pelayanan1'] = $entrophy_pelayanan1;
+            $arr['entrophy_pelayanan2'] = $entrophy_pelayanan2;
+            $arr['entrophy_pelayanan3'] = $entrophy_pelayanan3;
+            $arr['entrophy_pelayanan4'] = $entrophy_pelayanan4;
+            $arr['entrophy_pelayanan5'] = $entrophy_pelayanan5;
+            $arr['gain_pelayanan'] = $gain_pelayanan;
+        }
+
         //Array Biasa
         $data['pelayanan'] = ["5","5","5","5","5","5"];
         $data['produk'] = ["5","5","5","5","5","5"];
@@ -60,8 +118,8 @@ class HitungKuesionerController extends Controller
 
 
 
-
-        return view('hitungkuesioner.hitung', $data);
+        // dd($arr);die();
+        return view('hitungkuesioner.hitung', $data)->with(['arr' => $arr]);
     }
 
 
