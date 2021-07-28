@@ -31,6 +31,7 @@
                             $tot_ya = $arr['total']->sum_ya;
                             $tot_tidak = $arr['total']->sum_tidak;
 
+                            // PELAYANAN
                             $tot_nilai_pel1 = $arr['pelayanan']->sum_nilai_pelayanan1;
                             $tot_ya_pel1 = $arr['pelayanan']->sum_ya_pelayanan1;
                             $tot_tidak_pel1 = $arr['pelayanan']->sum_tidak_pelayanan1;
@@ -50,6 +51,69 @@
                             $tot_nilai_pel5 = $arr['pelayanan']->sum_nilai_pelayanan5;
                             $tot_ya_pel5 = $arr['pelayanan']->sum_ya_pelayanan5;
                             $tot_tidak_pel5 = $arr['pelayanan']->sum_tidak_pelayanan5;
+
+                            // PRODUK
+                            $tot_nilai_produk1 = $arr['produk']->sum_nilai_produk1;
+                            $tot_ya_produk1 = $arr['produk']->sum_ya_produk1;
+                            $tot_tidak_produk1 = $arr['produk']->sum_tidak_produk1;
+
+                            $tot_nilai_produk2 = $arr['produk']->sum_nilai_produk2;
+                            $tot_ya_produk2 = $arr['produk']->sum_ya_produk2;
+                            $tot_tidak_produk2 = $arr['produk']->sum_tidak_produk2;
+
+                            $tot_nilai_produk3 = $arr['produk']->sum_nilai_produk3;
+                            $tot_ya_produk3 = $arr['produk']->sum_ya_produk3;
+                            $tot_tidak_produk3 = $arr['produk']->sum_tidak_produk3;
+
+                            $tot_nilai_produk4 = $arr['produk']->sum_nilai_produk4;
+                            $tot_ya_produk4 = $arr['produk']->sum_ya_produk4;
+                            $tot_tidak_produk4 = $arr['produk']->sum_tidak_produk4;
+
+                            $tot_nilai_produk5 = $arr['produk']->sum_nilai_produk5;
+                            $tot_ya_produk5 = $arr['produk']->sum_ya_produk5;
+                            $tot_tidak_produk5 = $arr['produk']->sum_tidak_produk5;
+
+                            // KEBERSIHAN
+                            $tot_nilai_kebersihan1 = $arr['kebersihan']->sum_nilai_kebersihan1;
+                            $tot_ya_kebersihan1 = $arr['kebersihan']->sum_ya_kebersihan1;
+                            $tot_tidak_kebersihan1 = $arr['kebersihan']->sum_tidak_kebersihan1;
+
+                            $tot_nilai_kebersihan2 = $arr['kebersihan']->sum_nilai_kebersihan2;
+                            $tot_ya_kebersihan2 = $arr['kebersihan']->sum_ya_kebersihan2;
+                            $tot_tidak_kebersihan2 = $arr['kebersihan']->sum_tidak_kebersihan2;
+
+                            $tot_nilai_kebersihan3 = $arr['kebersihan']->sum_nilai_kebersihan3;
+                            $tot_ya_kebersihan3 = $arr['kebersihan']->sum_ya_kebersihan3;
+                            $tot_tidak_kebersihan3 = $arr['kebersihan']->sum_tidak_kebersihan3;
+
+                            $tot_nilai_kebersihan4 = $arr['kebersihan']->sum_nilai_kebersihan4;
+                            $tot_ya_kebersihan4 = $arr['kebersihan']->sum_ya_kebersihan4;
+                            $tot_tidak_kebersihan4 = $arr['kebersihan']->sum_tidak_kebersihan4;
+
+                            $tot_nilai_kebersihan5 = $arr['kebersihan']->sum_nilai_kebersihan5;
+                            $tot_ya_kebersihan5 = $arr['kebersihan']->sum_ya_kebersihan5;
+                            $tot_tidak_kebersihan5 = $arr['kebersihan']->sum_tidak_kebersihan5;
+
+                            // HARGA
+                            $tot_nilai_harga1 = $arr['harga']->sum_nilai_harga1;
+                            $tot_ya_harga1 = $arr['harga']->sum_ya_harga1;
+                            $tot_tidak_harga1 = $arr['harga']->sum_tidak_harga1;
+
+                            $tot_nilai_harga2 = $arr['harga']->sum_nilai_harga2;
+                            $tot_ya_harga2 = $arr['harga']->sum_ya_harga2;
+                            $tot_tidak_harga2 = $arr['harga']->sum_tidak_harga2;
+
+                            $tot_nilai_harga3 = $arr['harga']->sum_nilai_harga3;
+                            $tot_ya_harga3 = $arr['harga']->sum_ya_harga3;
+                            $tot_tidak_harga3 = $arr['harga']->sum_tidak_harga3;
+
+                            $tot_nilai_harga4 = $arr['harga']->sum_nilai_harga4;
+                            $tot_ya_harga4 = $arr['harga']->sum_ya_harga4;
+                            $tot_tidak_harga4 = $arr['harga']->sum_tidak_harga4;
+
+                            $tot_nilai_harga5 = $arr['harga']->sum_nilai_harga5;
+                            $tot_ya_harga5 = $arr['harga']->sum_ya_harga5;
+                            $tot_tidak_harga5 = $arr['harga']->sum_tidak_harga5;
                         @endphp
                         <td>{{ $tot_nilai }}</td>
                         <td>{{ $tot_ya }}</td>
@@ -57,6 +121,8 @@
                         <td>{{ $arr['entrophy_total'] }}</td>
                         <td></td>
                     </tr>
+
+                    <!-- PELAYANAN -->
                     <tr>
                         <td colspan="6">Pelayanan</td>
                         <td>{{ $arr['gain_pelayanan'] }}</td>
@@ -104,6 +170,159 @@
                         <td>{{ $tot_ya_pel5 }}</td>
                         <td>{{ $tot_tidak_pel5 }}</td>
                         <td>{{ $arr['entrophy_pelayanan5'] }}</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- PRODUK -->
+                    <tr>
+                        <td colspan="6">Produk</td>
+                        <td>{{ $arr['gain_produk'] }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>1</td>
+                        <td>{{ $tot_nilai_produk1 }}</td>
+                        <td>{{ $tot_ya_produk1 }}</td>
+                        <td>{{ $tot_tidak_produk1 }}</td>
+                        <td>{{ $arr['entrophy_produk1'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>2</td>
+                        <td>{{ $tot_nilai_produk2 }}</td>
+                        <td>{{ $tot_ya_produk2 }}</td>
+                        <td>{{ $tot_tidak_produk2 }}</td>
+                        <td>{{ $arr['entrophy_produk2'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>3</td>
+                        <td>{{ $tot_nilai_produk3 }}</td>
+                        <td>{{ $tot_ya_produk3 }}</td>
+                        <td>{{ $tot_tidak_produk3 }}</td>
+                        <td>{{ $arr['entrophy_produk3'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>4</td>
+                        <td>{{ $tot_nilai_produk4 }}</td>
+                        <td>{{ $tot_ya_produk4 }}</td>
+                        <td>{{ $tot_tidak_produk4 }}</td>
+                        <td>{{ $arr['entrophy_produk4'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>5</td>
+                        <td>{{ $tot_nilai_produk5 }}</td>
+                        <td>{{ $tot_ya_produk5 }}</td>
+                        <td>{{ $tot_tidak_produk5 }}</td>
+                        <td>{{ $arr['entrophy_produk5'] }}</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- KEBERSIHAN -->
+                    <tr>
+                        <td colspan="6">Kebersihan</td>
+                        <td>{{ $arr['gain_kebersihan'] }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>1</td>
+                        <td>{{ $tot_nilai_kebersihan1 }}</td>
+                        <td>{{ $tot_ya_kebersihan1 }}</td>
+                        <td>{{ $tot_tidak_kebersihan1 }}</td>
+                        <td>{{ $arr['entrophy_kebersihan1'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>2</td>
+                        <td>{{ $tot_nilai_kebersihan2 }}</td>
+                        <td>{{ $tot_ya_kebersihan2 }}</td>
+                        <td>{{ $tot_tidak_kebersihan2 }}</td>
+                        <td>{{ $arr['entrophy_kebersihan2'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>3</td>
+                        <td>{{ $tot_nilai_kebersihan3 }}</td>
+                        <td>{{ $tot_ya_kebersihan3 }}</td>
+                        <td>{{ $tot_tidak_kebersihan3 }}</td>
+                        <td>{{ $arr['entrophy_kebersihan3'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>4</td>
+                        <td>{{ $tot_nilai_kebersihan4 }}</td>
+                        <td>{{ $tot_ya_kebersihan4 }}</td>
+                        <td>{{ $tot_tidak_kebersihan4 }}</td>
+                        <td>{{ $arr['entrophy_kebersihan4'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>5</td>
+                        <td>{{ $tot_nilai_kebersihan5 }}</td>
+                        <td>{{ $tot_ya_kebersihan5 }}</td>
+                        <td>{{ $tot_tidak_kebersihan5 }}</td>
+                        <td>{{ $arr['entrophy_kebersihan5'] }}</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- HARGA -->
+                    <tr>
+                        <td colspan="6">Harga</td>
+                        <td>{{ $arr['gain_harga'] }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>1</td>
+                        <td>{{ $tot_nilai_harga1 }}</td>
+                        <td>{{ $tot_ya_harga1 }}</td>
+                        <td>{{ $tot_tidak_harga1 }}</td>
+                        <td>{{ $arr['entrophy_harga1'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>2</td>
+                        <td>{{ $tot_nilai_harga2 }}</td>
+                        <td>{{ $tot_ya_harga2 }}</td>
+                        <td>{{ $tot_tidak_harga2 }}</td>
+                        <td>{{ $arr['entrophy_harga2'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>3</td>
+                        <td>{{ $tot_nilai_harga3 }}</td>
+                        <td>{{ $tot_ya_harga3 }}</td>
+                        <td>{{ $tot_tidak_harga3 }}</td>
+                        <td>{{ $arr['entrophy_harga3'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>4</td>
+                        <td>{{ $tot_nilai_harga4 }}</td>
+                        <td>{{ $tot_ya_harga4 }}</td>
+                        <td>{{ $tot_tidak_harga4 }}</td>
+                        <td>{{ $arr['entrophy_harga4'] }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>5</td>
+                        <td>{{ $tot_nilai_harga5 }}</td>
+                        <td>{{ $tot_ya_harga5 }}</td>
+                        <td>{{ $tot_tidak_harga5 }}</td>
+                        <td>{{ $arr['entrophy_harga5'] }}</td>
                         <td></td>
                     </tr>
                 </tbody>

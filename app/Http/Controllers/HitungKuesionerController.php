@@ -70,6 +70,153 @@ class HitungKuesionerController extends Controller
             $arr['gain_pelayanan'] = $gain_pelayanan;
         }
 
+        $produk = DB::select('select 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 1) as sum_nilai_produk1, 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 1 and rekomendasi = 1) as sum_ya_produk1, 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 1 and rekomendasi = 0) as sum_tidak_produk1,
+
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 2) as sum_nilai_produk2, 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 2 and rekomendasi = 1) as sum_ya_produk2, 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 2 and rekomendasi = 0) as sum_tidak_produk2, 
+
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 3) as sum_nilai_produk3, 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 3 and rekomendasi = 1) as sum_ya_produk3, 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 3 and rekomendasi = 0) as sum_tidak_produk3, 
+
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 4) as sum_nilai_produk4, 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 4 and rekomendasi = 1) as sum_ya_produk4, 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 4 and rekomendasi = 0) as sum_tidak_produk4, 
+
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 5) as sum_nilai_produk5,
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 5 and rekomendasi = 1) as sum_ya_produk5, 
+            (SELECT count(Produk) FROM data_kuesioner where Produk = 5 and rekomendasi = 0) as sum_tidak_produk5
+            from data_kuesioner');
+        foreach ($produk as $v) {
+            $entrophy_produk1 = (-$v->sum_ya_produk1/$v->sum_nilai_produk1)*log($v->sum_ya_produk1/$v->sum_nilai_produk1)+(-$v->sum_tidak_produk1/$v->sum_nilai_produk1)*log($v->sum_tidak_produk1/$v->sum_nilai_produk1);
+
+            $entrophy_produk2 = (-$v->sum_ya_produk2/$v->sum_nilai_produk2)*log($v->sum_ya_produk2/$v->sum_nilai_produk2)+(-$v->sum_tidak_produk2/$v->sum_nilai_produk2)*log($v->sum_tidak_produk2/$v->sum_nilai_produk2);
+
+            $entrophy_produk3 = (-$v->sum_ya_produk3/$v->sum_nilai_produk3)*log($v->sum_ya_produk3/$v->sum_nilai_produk3)+(-$v->sum_tidak_produk3/$v->sum_nilai_produk3)*log($v->sum_tidak_produk3/$v->sum_nilai_produk3);
+
+            $entrophy_produk4 = (-$v->sum_ya_produk4/$v->sum_nilai_produk4)*log($v->sum_ya_produk4/$v->sum_nilai_produk4)+(-$v->sum_tidak_produk4/$v->sum_nilai_produk4)*log($v->sum_tidak_produk4/$v->sum_nilai_produk4);
+
+            $entrophy_produk5 = (-$v->sum_ya_produk5/$v->sum_nilai_produk5)*log($v->sum_ya_produk5/$v->sum_nilai_produk5)+(-$v->sum_tidak_produk5/$v->sum_nilai_produk5)*log($v->sum_tidak_produk5/$v->sum_nilai_produk5);
+
+            (is_nan($entrophy_produk1)) ? $entrophy_produk1 = 0 : $entrophy_produk1 = $entrophy_produk1;
+            (is_nan($entrophy_produk2)) ? $entrophy_produk2 = 0 : $entrophy_produk2 = $entrophy_produk2;
+            (is_nan($entrophy_produk3)) ? $entrophy_produk3 = 0 : $entrophy_produk3 = $entrophy_produk3;
+            (is_nan($entrophy_produk4)) ? $entrophy_produk4 = 0 : $entrophy_produk4 = $entrophy_produk4;
+            (is_nan($entrophy_produk5)) ? $entrophy_produk5 = 0 : $entrophy_produk5 = $entrophy_produk5;
+
+            $gain_produk = ($arr['entrophy_total'])-(($v->sum_nilai_produk1/$arr['total']->sum_nilai)*$entrophy_produk1)-(($v->sum_nilai_produk2/$arr['total']->sum_nilai)*$entrophy_produk2)-(($v->sum_nilai_produk3/$arr['total']->sum_nilai)*$entrophy_produk3)-(($v->sum_nilai_produk4/$arr['total']->sum_nilai)*$entrophy_produk4)-(($v->sum_nilai_produk5/$arr['total']->sum_nilai)*$entrophy_produk5);
+
+            $arr['produk'] = $v;
+            $arr['entrophy_produk1'] = $entrophy_produk1;
+            $arr['entrophy_produk2'] = $entrophy_produk2;
+            $arr['entrophy_produk3'] = $entrophy_produk3;
+            $arr['entrophy_produk4'] = $entrophy_produk4;
+            $arr['entrophy_produk5'] = $entrophy_produk5;
+            $arr['gain_produk'] = $gain_produk;
+        }
+
+        $kebersihan = DB::select('select 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 1) as sum_nilai_kebersihan1, 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 1 and rekomendasi = 1) as sum_ya_kebersihan1, 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 1 and rekomendasi = 0) as sum_tidak_kebersihan1,
+
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 2) as sum_nilai_kebersihan2, 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 2 and rekomendasi = 1) as sum_ya_kebersihan2, 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 2 and rekomendasi = 0) as sum_tidak_kebersihan2, 
+
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 3) as sum_nilai_kebersihan3, 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 3 and rekomendasi = 1) as sum_ya_kebersihan3, 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 3 and rekomendasi = 0) as sum_tidak_kebersihan3, 
+
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 4) as sum_nilai_kebersihan4, 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 4 and rekomendasi = 1) as sum_ya_kebersihan4, 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 4 and rekomendasi = 0) as sum_tidak_kebersihan4, 
+
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 5) as sum_nilai_kebersihan5,
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 5 and rekomendasi = 1) as sum_ya_kebersihan5, 
+            (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 5 and rekomendasi = 0) as sum_tidak_kebersihan5
+            from data_kuesioner');
+        foreach ($kebersihan as $v) {
+            $entrophy_kebersihan1 = (-$v->sum_ya_kebersihan1/$v->sum_nilai_kebersihan1)*log($v->sum_ya_kebersihan1/$v->sum_nilai_kebersihan1)+(-$v->sum_tidak_kebersihan1/$v->sum_nilai_kebersihan1)*log($v->sum_tidak_kebersihan1/$v->sum_nilai_kebersihan1);
+
+            $entrophy_kebersihan2 = (-$v->sum_ya_kebersihan2/$v->sum_nilai_kebersihan2)*log($v->sum_ya_kebersihan2/$v->sum_nilai_kebersihan2)+(-$v->sum_tidak_kebersihan2/$v->sum_nilai_kebersihan2)*log($v->sum_tidak_kebersihan2/$v->sum_nilai_kebersihan2);
+
+            $entrophy_kebersihan3 = (-$v->sum_ya_kebersihan3/$v->sum_nilai_kebersihan3)*log($v->sum_ya_kebersihan3/$v->sum_nilai_kebersihan3)+(-$v->sum_tidak_kebersihan3/$v->sum_nilai_kebersihan3)*log($v->sum_tidak_kebersihan3/$v->sum_nilai_kebersihan3);
+
+            $entrophy_kebersihan4 = (-$v->sum_ya_kebersihan4/$v->sum_nilai_kebersihan4)*log($v->sum_ya_kebersihan4/$v->sum_nilai_kebersihan4)+(-$v->sum_tidak_kebersihan4/$v->sum_nilai_kebersihan4)*log($v->sum_tidak_kebersihan4/$v->sum_nilai_kebersihan4);
+
+            $entrophy_kebersihan5 = (-$v->sum_ya_kebersihan5/$v->sum_nilai_kebersihan5)*log($v->sum_ya_kebersihan5/$v->sum_nilai_kebersihan5)+(-$v->sum_tidak_kebersihan5/$v->sum_nilai_kebersihan5)*log($v->sum_tidak_kebersihan5/$v->sum_nilai_kebersihan5);
+
+            (is_nan($entrophy_kebersihan1)) ? $entrophy_kebersihan1 = 0 : $entrophy_kebersihan1 = $entrophy_kebersihan1;
+            (is_nan($entrophy_kebersihan2)) ? $entrophy_kebersihan2 = 0 : $entrophy_kebersihan2 = $entrophy_kebersihan2;
+            (is_nan($entrophy_kebersihan3)) ? $entrophy_kebersihan3 = 0 : $entrophy_kebersihan3 = $entrophy_kebersihan3;
+            (is_nan($entrophy_kebersihan4)) ? $entrophy_kebersihan4 = 0 : $entrophy_kebersihan4 = $entrophy_kebersihan4;
+            (is_nan($entrophy_kebersihan5)) ? $entrophy_kebersihan5 = 0 : $entrophy_kebersihan5 = $entrophy_kebersihan5;
+
+            $gain_kebersihan = ($arr['entrophy_total'])-(($v->sum_nilai_kebersihan1/$arr['total']->sum_nilai)*$entrophy_kebersihan1)-(($v->sum_nilai_kebersihan2/$arr['total']->sum_nilai)*$entrophy_kebersihan2)-(($v->sum_nilai_kebersihan3/$arr['total']->sum_nilai)*$entrophy_kebersihan3)-(($v->sum_nilai_kebersihan4/$arr['total']->sum_nilai)*$entrophy_kebersihan4)-(($v->sum_nilai_kebersihan5/$arr['total']->sum_nilai)*$entrophy_kebersihan5);
+
+            $arr['kebersihan'] = $v;
+            $arr['entrophy_kebersihan1'] = $entrophy_kebersihan1;
+            $arr['entrophy_kebersihan2'] = $entrophy_kebersihan2;
+            $arr['entrophy_kebersihan3'] = $entrophy_kebersihan3;
+            $arr['entrophy_kebersihan4'] = $entrophy_kebersihan4;
+            $arr['entrophy_kebersihan5'] = $entrophy_kebersihan5;
+            $arr['gain_kebersihan'] = $gain_kebersihan;
+        }
+
+        $harga = DB::select('select 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 1) as sum_nilai_harga1, 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 1 and rekomendasi = 1) as sum_ya_harga1, 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 1 and rekomendasi = 0) as sum_tidak_harga1,
+
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 2) as sum_nilai_harga2, 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 2 and rekomendasi = 1) as sum_ya_harga2, 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 2 and rekomendasi = 0) as sum_tidak_harga2, 
+
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 3) as sum_nilai_harga3, 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 3 and rekomendasi = 1) as sum_ya_harga3, 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 3 and rekomendasi = 0) as sum_tidak_harga3, 
+
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 4) as sum_nilai_harga4, 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 4 and rekomendasi = 1) as sum_ya_harga4, 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 4 and rekomendasi = 0) as sum_tidak_harga4, 
+
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 5) as sum_nilai_harga5,
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 5 and rekomendasi = 1) as sum_ya_harga5, 
+            (SELECT count(Harga) FROM data_kuesioner where Harga = 5 and rekomendasi = 0) as sum_tidak_harga5
+            from data_kuesioner');
+        foreach ($harga as $v) {
+            $entrophy_harga1 = (-$v->sum_ya_harga1/$v->sum_nilai_harga1)*log($v->sum_ya_harga1/$v->sum_nilai_harga1)+(-$v->sum_tidak_harga1/$v->sum_nilai_harga1)*log($v->sum_tidak_harga1/$v->sum_nilai_harga1);
+
+            $entrophy_harga2 = (-$v->sum_ya_harga2/$v->sum_nilai_harga2)*log($v->sum_ya_harga2/$v->sum_nilai_harga2)+(-$v->sum_tidak_harga2/$v->sum_nilai_harga2)*log($v->sum_tidak_harga2/$v->sum_nilai_harga2);
+
+            $entrophy_harga3 = (-$v->sum_ya_harga3/$v->sum_nilai_harga3)*log($v->sum_ya_harga3/$v->sum_nilai_harga3)+(-$v->sum_tidak_harga3/$v->sum_nilai_harga3)*log($v->sum_tidak_harga3/$v->sum_nilai_harga3);
+
+            $entrophy_harga4 = (-$v->sum_ya_harga4/$v->sum_nilai_harga4)*log($v->sum_ya_harga4/$v->sum_nilai_harga4)+(-$v->sum_tidak_harga4/$v->sum_nilai_harga4)*log($v->sum_tidak_harga4/$v->sum_nilai_harga4);
+
+            $entrophy_harga5 = (-$v->sum_ya_harga5/$v->sum_nilai_harga5)*log($v->sum_ya_harga5/$v->sum_nilai_harga5)+(-$v->sum_tidak_harga5/$v->sum_nilai_harga5)*log($v->sum_tidak_harga5/$v->sum_nilai_harga5);
+
+            (is_nan($entrophy_harga1)) ? $entrophy_harga1 = 0 : $entrophy_harga1 = $entrophy_harga1;
+            (is_nan($entrophy_harga2)) ? $entrophy_harga2 = 0 : $entrophy_harga2 = $entrophy_harga2;
+            (is_nan($entrophy_harga3)) ? $entrophy_harga3 = 0 : $entrophy_harga3 = $entrophy_harga3;
+            (is_nan($entrophy_harga4)) ? $entrophy_harga4 = 0 : $entrophy_harga4 = $entrophy_harga4;
+            (is_nan($entrophy_harga5)) ? $entrophy_harga5 = 0 : $entrophy_harga5 = $entrophy_harga5;
+
+            $gain_harga = ($arr['entrophy_total'])-(($v->sum_nilai_harga1/$arr['total']->sum_nilai)*$entrophy_harga1)-(($v->sum_nilai_harga2/$arr['total']->sum_nilai)*$entrophy_harga2)-(($v->sum_nilai_harga3/$arr['total']->sum_nilai)*$entrophy_harga3)-(($v->sum_nilai_harga4/$arr['total']->sum_nilai)*$entrophy_harga4)-(($v->sum_nilai_harga5/$arr['total']->sum_nilai)*$entrophy_harga5);
+
+            $arr['harga'] = $v;
+            $arr['entrophy_harga1'] = $entrophy_harga1;
+            $arr['entrophy_harga2'] = $entrophy_harga2;
+            $arr['entrophy_harga3'] = $entrophy_harga3;
+            $arr['entrophy_harga4'] = $entrophy_harga4;
+            $arr['entrophy_harga5'] = $entrophy_harga5;
+            $arr['gain_harga'] = $gain_harga;
+        }
+
         //Array Biasa
         $data['pelayanan'] = ["5","5","5","5","5","5"];
         $data['produk'] = ["5","5","5","5","5","5"];
