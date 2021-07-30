@@ -327,6 +327,26 @@
                     </tr>
                 </tbody>
             </table>
+            <br>
+            <br>
+            <h4>Hasil Peringkat Berdasarkan Perhitungan Gain</h4>
+            <table class="table" border="5">
+                <thead>
+                    <tr>
+                        <th>Peringkat</th>
+                        <th>Variable</th>
+                    </tr>
+                </thead>
+                    @php $peringkat = 1; @endphp
+                    @foreach($hasilGain as $v)
+                        <tr>
+                            <td>{{ $peringkat++ }}</td>
+                            <td>{{ $v->variable }}</td>
+                        </tr>
+                    @endforeach
+                <tbody>
+                </tbody>
+            </table>
             <!-- <div id="hitungkuesioner">
 
                 @if (!empty($hitungkuesioner_list) )

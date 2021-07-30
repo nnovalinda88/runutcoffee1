@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\HitungKuesioner;
 use App\Models\Kuesioner;
 use Illuminate\Support\Facades\Validator;
+use App\Models\HasilGain;
 use DB;
 
 class HitungKuesionerController extends Controller
 {
     public function index()
     {
+        HasilGain::query()->truncate();
+
         $arr = [];
         $tot = DB::select('select count(rekomendasi) as sum_nilai, (SELECT count(rekomendasi) FROM data_kuesioner where rekomendasi = 1) as sum_ya, (SELECT count(rekomendasi) FROM data_kuesioner where rekomendasi = 0) as sum_tidak from data_kuesioner');
         foreach ($tot as $v) {
@@ -69,6 +72,7 @@ class HitungKuesionerController extends Controller
             $arr['entrophy_pelayanan5'] = $entrophy_pelayanan5;
             $arr['gain_pelayanan'] = $gain_pelayanan;
         }
+        HasilGain::create(['variable' => "Pelayanan", 'gain' => $gain_pelayanan]);
 
         $produk = DB::select('select 
             (SELECT count(Produk) FROM data_kuesioner where Produk = 1) as sum_nilai_produk1, 
@@ -118,6 +122,7 @@ class HitungKuesionerController extends Controller
             $arr['entrophy_produk5'] = $entrophy_produk5;
             $arr['gain_produk'] = $gain_produk;
         }
+        HasilGain::create(['variable' => "Produk", 'gain' => $gain_produk]);
 
         $kebersihan = DB::select('select 
             (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 1) as sum_nilai_kebersihan1, 
@@ -167,6 +172,7 @@ class HitungKuesionerController extends Controller
             $arr['entrophy_kebersihan5'] = $entrophy_kebersihan5;
             $arr['gain_kebersihan'] = $gain_kebersihan;
         }
+        HasilGain::create(['variable' => "Kebersihan", 'gain' => $gain_kebersihan]);
 
         $harga = DB::select('select 
             (SELECT count(Harga) FROM data_kuesioner where Harga = 1) as sum_nilai_harga1, 
@@ -216,6 +222,9 @@ class HitungKuesionerController extends Controller
             $arr['entrophy_harga5'] = $entrophy_harga5;
             $arr['gain_harga'] = $gain_harga;
         }
+        HasilGain::create(['variable' => "Harga", 'gain' => $gain_harga]);
+
+        $hasilGain = HasilGain::orderBy('gain', 'DESC')->get();
 
         //Array Biasa
         $data['pelayanan'] = ["5","5","5","5","5","5"];
@@ -266,7 +275,7 @@ class HitungKuesionerController extends Controller
 
 
         // dd($arr);die();
-        return view('hitungkuesioner.hitung', $data)->with(['arr' => $arr]);
+        return view('hitungkuesioner.hitung', $data)->with(['arr' => $arr, 'hasilGain' => $hasilGain]);
     }
 
 
