@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\customer;
 use App\Models\Kuesioner;
 use App\Models\NilaiKuesioner;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\DB;
 #!/usr/bin/env python
 
 class KuesionerController extends Controller

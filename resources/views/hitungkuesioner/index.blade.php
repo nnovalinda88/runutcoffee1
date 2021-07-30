@@ -17,10 +17,7 @@
                  <div id="hitungkuesioner">
 
                     @csrf
-                    <div class="form-group">
-                        <label for="tanggal" class="control-label">Dari Tanggal</label>
-                        <input name="tanggal_awal" id="tanggal_awal" type="date" class="form-control">
-                    </div>
+                    
 
                     <div class="text-center">
                         <input type="submit"

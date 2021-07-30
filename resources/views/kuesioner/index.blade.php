@@ -6,18 +6,7 @@
 
     <h2> Data Kuesioner</h2>
 
-    <div class="col-md-12">
-        <form action="#" method="get" class="navbar-form navbar-right">
-            <div class="input-group ">
-                <input type="text" name="q" class="form-control" placeholder="Search...">
-                <span class="input-group-btn">
-                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
-                            class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
-    </div>
+    
     <div class="box-botton">
 
         <a href="{{ url('kuesioner/create') }}" class="btn btn-primary btn btn-primary" style="float: left;">Tambah
@@ -33,17 +22,27 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>tanggal</th>
                             <th>id</th>
                             <th>jenis kelamin</th>
+                            <th>pelayanan</th>
+                            <th>produk</th>
+                            <th>kebersihan</th>
+                            <th>Harga</th>
+                            <th>Rekomendasi</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($kuesioner_list as $kuesioner)
                         <tr>
-                            <td>{{ $kuesioner->tanggal }}</td>
                             <td>{{ $kuesioner->id }}</td>
                             <td>{{ $kuesioner->jeniskelamin }}</td>
+                            <td>{{ $kuesioner->pelayanan }}</td>
+                            <td>{{ $kuesioner->produk }}</td>
+                            <td>{{ $kuesioner->kebersihan }}</td>
+                            <td>{{ $kuesioner->Harga }}</td>
+                            <td>{{ $kuesioner->Rekomendasi }}</td>
+
                             <td>
                                 <div class="box-botton">
 
