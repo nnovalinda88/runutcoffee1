@@ -24,12 +24,7 @@
                         <tr>
                             <th>id</th>
                             <th>jenis kelamin</th>
-                            <th>pelayanan</th>
-                            <th>produk</th>
-                            <th>kebersihan</th>
-                            <th>Harga</th>
-                            <th>Rekomendasi</th>
-
+                         
                         </tr>
                     </thead>
                     <tbody>
@@ -37,19 +32,15 @@
                         <tr>
                             <td>{{ $kuesioner->id }}</td>
                             <td>{{ $kuesioner->jeniskelamin }}</td>
-                            <td>{{ $kuesioner->pelayanan }}</td>
-                            <td>{{ $kuesioner->produk }}</td>
-                            <td>{{ $kuesioner->kebersihan }}</td>
-                            <td>{{ $kuesioner->Harga }}</td>
-                            <td>{{ $kuesioner->Rekomendasi }}</td>
+                          
 
                             <td>
                                 <div class="box-botton">
 
-                                    <a class="btn btn-success btn-sm" href="/kuesioner/show/{{ $kuesioner->id }}">Detail</a>
+                                    <a class="btn btn-success btn-sm" href="/kuesioner/show/{{ $kuesioner->id }}" >Detail</a>
                                 </div>
-                                <div class="box-botton">
-                                    {{ link_to('kuesioner/' . $kuesioner->id . '/edit', 'Edit', ['class'
+                                <div class="box-botton" >
+                                    {{ link_to('kuesioner/' . 'edit/'. $kuesioner->id, 'Edit', ['class'
                                                             => 'btn btn-warning btn-sm']) }}
                                 </div>
 
@@ -71,7 +62,7 @@
                 <p>Tidak ada data Kuesioner</p>
                 @endif
 
-                <div class="table-nav">
+                <div class="table-nav"> 
                     <div class="jumlah-data">
                         <strong> Jumlah Kuesioner: {{ $jumlah_kuesioner }} </strong>
                     </div>

@@ -24,13 +24,14 @@ Route::get('/users','App\Http\Controllers\UserController@index');
 
 
 Route::get('/kuesioner/show/{kuesioner}', 'App\Http\Controllers\KuesionerController@show');
+
 Route::get('/klasifikasi', 'App\Http\Controllers\HitungKuesionerController@klasifikasi');
-//
+
 Route::post('/kuesioner/store', 'App\Http\Controllers\KuesionerController@store');
 
 Route::post('/kuesioner/update/{id}', 'App\Http\Controllers\KuesionerController@update');
 
-Route::get('/kuesioner/edit/{kuesioner}', 'App\Http\Controllers\KuesionerController@edit');
+Route::get('/kuesioner/edit/{id}', 'App\Http\Controllers\KuesionerController@edit');
 
 Route::get('/kuesioner','App\Http\Controllers\KuesionerController@index');
 
