@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\customer;
 use App\Models\Kuesioner;
 use App\Models\NilaiKuesioner;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\DB;
 #!/usr/bin/env python
 
 class KuesionerController extends Controller
@@ -19,30 +21,12 @@ class KuesionerController extends Controller
 
     
  
-  
     public function show($id) {
 
-        $kuesioner = DB::select("
-        select kuesioner.id as id, kuesioner.tanggal as tanggal, kuesioner.jeniskelamin as jeniskelamin, kuesioner.Rekomendasi as Rekomendasi,
-        variable1.nama_variable as Pelayanan, variable2.nama_variable as Produk,  variable3.nama_variable as Kebersihan,  variable4.nama_variable as Harga
-        from
-        data_kuesioner as kuesioner
-        join
-        variable as variable1
-        on kuesioner.Pelayanan = variable1.id_variable
-        join
-        variable as variable2
-        on kuesioner.Produk = variable2.id_variable
-        join
-        variable as variable3
-        on kuesioner.Kebersihan = variable3.id_variable
-        join
-        variable as variable4
-        on kuesioner.Harga = variable4.id_variable
-        where kuesioner.id = '".$id."'
-        ");
-
+       
+        $kuesioner = kuesioner::findOrFail($id);
         return view('kuesioner.show', compact('kuesioner'));
+    
     }   
 
     public function create () {
@@ -99,8 +83,7 @@ public function update($id, Request $request) {
    // $kuesioner->update($request->all());
 
    $validator = Validator::make($input, [
-    'tanggal'  =>  'required|date',
-    'jeniskelamin' => 'required|in:Lakilaki,Perempuan',
+    'jeniskelamin' => 'required|in:1,2',
     'Pelayanan'  =>  'required',
     'Produk'  =>  'required',
     'Kebersihan'  =>  'required',

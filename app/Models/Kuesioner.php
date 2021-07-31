@@ -11,7 +11,6 @@ class Kuesioner extends Model
     protected $table = 'data_kuesioner';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'tanggal',
          'id',
           'jeniskelamin',
            'Pelayanan',

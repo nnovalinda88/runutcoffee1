@@ -56,12 +56,9 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <div class="pull-right">
-                            <a href="#" class="btn btn-primary mb1 bg-red">Log out</a>
+                            <a href=" {{ route('logout')}}" class="btn btn-primary mb1 bg-red">Log out</a>
                         </div>
 
-                        <div class="pull-right">
-                            <a href="#" class="btn btn-primary mb1 black bg-yellow">Ubah Akun</a>
-                        </div>
 
                         <!-- User Account: style can be found in dropdown.less -->
 

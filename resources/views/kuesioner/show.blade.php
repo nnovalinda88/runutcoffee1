@@ -9,10 +9,7 @@
 
         <h2>Detail Kuesioner</h2>
         <table class="table table-striped">
-        <tr>
-            <th>Tanggal</th>
-            <td>{{ $kuesioner->tanggal }}</td>
-        </tr>
+       
         <tr>
             <th>id kuesioner</th>
             <td>{{ $kuesioner->id }}</td>
