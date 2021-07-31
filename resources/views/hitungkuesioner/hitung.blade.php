@@ -335,6 +335,7 @@
                     <tr>
                         <th>Peringkat</th>
                         <th>Variable</th>
+                        <th>Keterangan</th>
                     </tr>
                 </thead>
                     @php $peringkat = 1; @endphp
@@ -342,6 +343,7 @@
                         <tr>
                             <td>{{ $peringkat++ }}</td>
                             <td>{{ $v->variable }}</td>
+                            <td>Gain: {{ $v->gain }} x 100 = {{  number_format($v->gain * 100, 2, ',', ' ') }}%</td>
                         </tr>
                     @endforeach
                 <tbody>
