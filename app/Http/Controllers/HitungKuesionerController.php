@@ -18,12 +18,15 @@ class HitungKuesionerController extends Controller
 
         $arr = [];
         $tot = DB::select('select count(rekomendasi) as sum_nilai, (SELECT count(rekomendasi) FROM data_kuesioner where rekomendasi = 1) as sum_ya, (SELECT count(rekomendasi) FROM data_kuesioner where rekomendasi = 0) as sum_tidak from data_kuesioner');
+
+        // GET TOTAL ENTROPHY
         foreach ($tot as $v) {
             $entrophy_total = (-$v->sum_ya/$v->sum_nilai)*log($v->sum_ya/$v->sum_nilai)+(-$v->sum_tidak/$v->sum_nilai)*log($v->sum_tidak/$v->sum_nilai);
             $arr['total'] = $v;
             $arr['entrophy_total'] = $entrophy_total;
         }
 
+        // GET PELAYANAN VALUE FOR ALL VARIABLE NEEDED
         $pelayanan = DB::select('select 
             (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 1) as sum_nilai_pelayanan1, 
             (SELECT count(Pelayanan) FROM data_kuesioner where Pelayanan = 1 and rekomendasi = 1) as sum_ya_pelayanan1, 
@@ -74,6 +77,7 @@ class HitungKuesionerController extends Controller
         }
         HasilGain::create(['variable' => "Pelayanan", 'gain' => $gain_pelayanan]);
 
+        // GET PRODUK VALUE FOR ALL VARIABLE NEEDED
         $produk = DB::select('select 
             (SELECT count(Produk) FROM data_kuesioner where Produk = 1) as sum_nilai_produk1, 
             (SELECT count(Produk) FROM data_kuesioner where Produk = 1 and rekomendasi = 1) as sum_ya_produk1, 
@@ -124,6 +128,7 @@ class HitungKuesionerController extends Controller
         }
         HasilGain::create(['variable' => "Produk", 'gain' => $gain_produk]);
 
+        // GET KEBERSIHAN VALUE FOR ALL VARIABLE NEEDED
         $kebersihan = DB::select('select 
             (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 1) as sum_nilai_kebersihan1, 
             (SELECT count(Kebersihan) FROM data_kuesioner where Kebersihan = 1 and rekomendasi = 1) as sum_ya_kebersihan1, 
@@ -174,6 +179,7 @@ class HitungKuesionerController extends Controller
         }
         HasilGain::create(['variable' => "Kebersihan", 'gain' => $gain_kebersihan]);
 
+        // GET HARGA VALUE FOR ALL VARIABLE NEEDED
         $harga = DB::select('select 
             (SELECT count(Harga) FROM data_kuesioner where Harga = 1) as sum_nilai_harga1, 
             (SELECT count(Harga) FROM data_kuesioner where Harga = 1 and rekomendasi = 1) as sum_ya_harga1, 

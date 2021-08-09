@@ -26,6 +26,7 @@
                 <tbody>
                     <tr>
                         <td colspan="2">Total Kasus</td>
+                        <!-- OVERWRITE VARIABLE FROM CONTROLLER -->
                         @php
                             $tot_nilai = $arr['total']->sum_nilai;
                             $tot_ya = $arr['total']->sum_ya;
